@@ -29,6 +29,12 @@ declare namespace ROSLIB {
         z?: number | null | undefined;
         w?: number | null | undefined;
     }
+    export interface RosOptions {
+        url?: string | undefined;
+        groovyCompatibility?: boolean | undefined;
+        transportLibrary?: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection | undefined;
+        transportOptions?: RTCDataChannelInit | undefined;
+    }
     export class Ros extends EventEmitter2 {
         /**
          * Manages connection to the server and all interactions with ROS.
@@ -47,12 +53,7 @@ declare namespace ROSLIB {
          *   * transportLibrary (optional) - one of 'websocket', 'workersocket' (default), 'socket.io' or RTCPeerConnection instance controlling how the connection is created in `connect`.
          *   * transportOptions (optional) - the options to use use when creating a connection. Currently only used if `transportLibrary` is RTCPeerConnection.
          */
-        constructor(options: {
-            url?: string | undefined;
-            groovyCompatibility?: boolean | undefined;
-            transportLibrary?: 'websocket' | 'workersocket' | 'socket.io' | RTCPeerConnection | undefined;
-            transportOptions?: RTCDataChannelInit | undefined;
-        });
+        constructor(options: RosOptions);
 
         readonly isConnected: boolean;
 
